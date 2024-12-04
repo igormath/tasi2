@@ -8,3 +8,22 @@ body{
 .mainpage__subtitle, .mainpage__title{
     text-align: center;
 }
+
+.main__navbar{
+    display: flex;
+    flex-direction: row;
+}
+
+.link-a{
+    width: 10%;
+    margin: 0 2vw 0 2vw;
+    padding: 10px;
+    text-align: center;
+    transition: background-color 0.3s ease, border-radius 0.3s ease;
+}
+
+.link-a:hover{
+    background-color: #9e9e9e;
+    color: #fff;
+    border-radius: 5px;
+}
