@@ -3,7 +3,7 @@ from dash import html, dcc, callback, Input, Output
 import pandas as pd
 import plotly.graph_objects as go
 
-dash.register_page(__name__)
+dash.register_page(__name__, path='/')
 
 df = pd.read_csv('user_answers2022-2023teste.csv')
 units = sorted(df['UNIDADE'].unique())
@@ -32,13 +32,23 @@ for unity_name in units:
                                 showlegend=False,
                                 hoverinfo='y+name'
                             ))
-violin.update_layout(title_text="Carga horária semanal na graduação, pós-graduação e cursos lato sensu, presencial ou EAD, por unidade")
-
+violin.update_layout(
+    title=dict(
+            text='Carga horária semanal na graduação, pós-graduação e cursos lato sensu, presencial ou EAD, por unidade',
+            y=0.85,
+            xanchor='left',
+            font=dict(
+                size=20,
+                color='black',
+                weight='bold'
+            ),
+        ),
+    )
 
 layout = html.Main([
             html.H2(id='', className='mainpage__subtitle', children='Carga horária docente'),
-            html.P(children='Métrica utilizada: '),
-            dcc.RadioItems(['Média', 'Mediana'], 'Média', inline=True, id='radio__selection-lollipop'),
+            html.P(children='Métrica utilizada: ', className='body__text'),
+            dcc.RadioItems(['Média', 'Mediana'], 'Média', inline=True, id='radio__selection-lollipop', className='body__text'),
             dcc.Graph(id='lollipop-graph'),
             dcc.Graph(figure=violin),
 ])
@@ -121,7 +131,16 @@ def update_graph(value):
     fig = go.Figure(data=fig_data)
 
     fig.update_layout(
-        title=dict(text="Carga horária semanal mínima e máxima dos docentes da Graduação"),
+        title=dict(
+            text='Carga horária semanal, mínima e máxima, dos docentes da Graduação',
+            y=0.93,
+            xanchor='left',
+            font=dict(
+                size=20,
+                color='black',
+                weight='bold'
+            ),
+        ),
         height=1000,
         legend_itemclick=False,
     )

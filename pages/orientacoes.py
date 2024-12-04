@@ -25,7 +25,16 @@ media_pos_bargraph = go.Figure(data=[go.Bar(
 )])
 
 media_pos_bargraph.update_layout(
-    title='Orientações concluídas e em andamento por Docente - Pós-graduação',
+    title=dict(
+            text='Orientações concluídas e em andamento por Docente - Pós-graduação',
+            y=0.85,
+            xanchor='left',
+            font=dict(
+                size=20,
+                color='black',
+                weight='bold'
+            ),
+        ),
     xaxis_title='Orientações em andamento por docente',
     yaxis_title='Unidade',
     # font=dict(
@@ -37,8 +46,8 @@ media_pos_bargraph.update_traces(textposition='inside', textfont_size=18)
 
 layout = html.Main([
             html.H2(id='', className='mainpage__subtitle', children='Orientações de trabalhos'),
-            html.P(children='Cor dos professores: '),
-            dcc.RadioItems(['Docente de pós graduação', 'Docente participa de laboratórios de pesquisa'], 'Docente de pós graduação', inline=True, id='radio__selection-beeswarm'),
+            html.P(children='Cor dos professores: ', className='body__text'),
+            dcc.RadioItems(['Docente de pós graduação', 'Docente participa de laboratórios de pesquisa'], 'Docente de pós graduação', inline=True, id='radio__selection-beeswarm', className='body__text'),
             dcc.Graph(id='beeswarm-graph'),
             dcc.Graph(figure=media_pos_bargraph),
 ])
@@ -85,7 +94,14 @@ def update_graph(value):
         yaxis_title='Orientações concluídas de TCC',
         plot_bgcolor='#fff',
         title=dict(
-            text=f'Orientações concluídas de TCC por Unidade',
+            text='Orientações concluídas de TCC por Unidade',
+            y=0.93,
+            xanchor='left',
+            font=dict(
+                size=20,
+                color='black',
+                weight='bold'
+            ),
         ),
     )
 

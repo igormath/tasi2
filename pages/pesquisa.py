@@ -30,7 +30,16 @@ projetos_por_financ_bargraph = go.Figure(data=[
 
 # Personalização do gráfico
 projetos_por_financ_bargraph.update_layout(
-    title='Número de Projetos por Tipo de Apoio Financeiro e Unidade',
+    title=dict(
+            text='Número de Projetos por Tipo de Apoio Financeiro e Unidade',
+            y=0.85,
+            xanchor='left',
+            font=dict(
+                size=20,
+                color='black',
+                weight='bold'
+            ),
+        ),
     xaxis_title='Unidade',
     xaxis_title_font_size=12,
     yaxis_title='Número de Projetos',
@@ -58,7 +67,16 @@ lideres_pesquisa_bargraph = go.Figure(data=[go.Bar(
 
 # Personalização do gráfico
 lideres_pesquisa_bargraph.update_layout(
-    title='Quantidade de Professores Líderes de Pesquisa por Unidade',
+    title=dict(
+            text='Quantidade de Professores Líderes de Pesquisa por Unidade',
+            y=0.85,
+            xanchor='left',
+            font=dict(
+                size=20,
+                color='black',
+                weight='bold'
+            ),
+        ),
     xaxis_title='Número de Professores Líderes de Pesquisa',
     xaxis_title_font_size=14,
     yaxis_title='Unidade',
@@ -68,8 +86,8 @@ lideres_pesquisa_bargraph.update_layout(
 layout = html.Main([
             html.H2(id='', className='mainpage__subtitle', children='Pesquisa científica'),
             dcc.Graph(figure=projetos_por_financ_bargraph),
-            html.P(children='Tipo de artigo: '),
-            dcc.RadioItems(['Científico', 'Extensão'], 'Científico', inline=True, id='radio__selection-bargrapharticle'),
+            html.P(children='Tipo de artigo: ', className='body__text'),
+            dcc.RadioItems(['Científico', 'Extensão'], 'Científico', inline=True, id='radio__selection-bargrapharticle', className='body__text'),
             dcc.Graph(id='bargrapharticle'),
             dcc.Graph(figure=lideres_pesquisa_bargraph),
         ])
@@ -110,7 +128,20 @@ def update_graph(value):
             'Soma total de publicações qualis B e sem qualis': soma_publicacoes_b_por_unidade['Soma total de publicações qualis B e sem qualis']
         })
 
-        fig = px.bar(resultado_final, y="UNIDADE", x=["Soma total de publicações qualis A", "Soma total de publicações qualis B e sem qualis"], title="Soma de publicações por unidade", orientation="h")
+        fig = px.bar(resultado_final, y="UNIDADE", x=["Soma total de publicações qualis A", "Soma total de publicações qualis B e sem qualis"], orientation="h")
+        
+        fig.update_layout(
+            title=dict(
+            text='Soma de publicações por unidade',
+            y=0.93,
+            xanchor='left',
+            font=dict(
+                size=20,
+                color='black',
+                weight='bold'
+            ),
+            ),
+        )
         return fig
     
     elif value == 'Extensão':
@@ -144,5 +175,18 @@ def update_graph(value):
             'Soma total de publicações qualis B e sem qualis': soma_publicacoes_b_por_unidade['Soma total de publicações qualis B e sem qualis']
         })
 
-        fig = px.bar(resultado_final, y="UNIDADE", x=["Soma total de publicações qualis A", "Soma total de publicações qualis B e sem qualis"], title="Soma de publicações por unidade", orientation="h")
+        fig = px.bar(resultado_final, y="UNIDADE", x=["Soma total de publicações qualis A", "Soma total de publicações qualis B e sem qualis"], orientation="h")
+
+        fig.update_layout(
+            title=dict(
+            text='Soma de publicações por unidade',
+            y=0.93,
+            xanchor='left',
+            font=dict(
+                size=20,
+                color='black',
+                weight='bold'
+            ),
+            ),
+        )
         return fig
