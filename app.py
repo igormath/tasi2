@@ -2,6 +2,7 @@ from dash import Dash, html, dcc, callback, Output, Input
 import dash
 
 app = Dash(__name__, use_pages=True)
+server = app.server
 
 # Layout com um componente dcc.Location para capturar o pathname da URL
 app.layout = html.Div([
