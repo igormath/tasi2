@@ -62,6 +62,13 @@ def update_graph(value):
     if value == 'Docente participa de laboratórios de pesquisa':
         # Linhas onde "Participação em laboratórios de pesquisa" > 0 recebem a cor azul
         df.loc[df['Participação em laboratórios de pesquisa'] > 0, 'color'] = 'Azul'
+
+        legend_title = "Participação em Laboratórios de Pesquisa"
+        legend_labels = {
+            'Cinza': 'Docente não participante de laboratório de pesquisa',
+            'Azul': 'Docente participante de laboratório de pesquisa'
+        }
+        
     else:
         # Linhas onde qualquer uma das colunas específicas > 0 recebem a cor azul
         df.loc[
@@ -72,26 +79,39 @@ def update_graph(value):
             'color'
         ] = 'Azul'
 
+        legend_title = "Docência na Pós-Graduação"
+        legend_labels = {
+            'Cinza': 'Docente não leciona na pós-graduação',
+            'Azul': 'Docente de pós-graduação'
+        }
+
     categorias_ordenadas = sorted(df['UNIDADE'].unique())
 
-
-    # Criação do gráfico
     figure = px.strip(
         df,
         x='UNIDADE',
         y='Orientacao_Concluida_TCC',
         color='color',
-        color_discrete_map={'Cinza': 'gray', 'Azul': 'blue'},
+        color_discrete_map={'Cinza': 'red', 'Azul': 'blue'},
         orientation='v',
         stripmode='overlay',
         hover_data=["DOCENTE"],
         category_orders={'UNIDADE': categorias_ordenadas},  # Ordem fixa no eixo X
     )
 
+    # Criação do gráfico
+    
+    figure.for_each_trace(
+        lambda trace: trace.update(
+            name=legend_labels[trace.name] if trace.name in legend_labels else trace.name
+        )
+    )
+
     # Customizações de layout
     figure.update_layout(
         xaxis_title='Unidade',
         yaxis_title='Orientações concluídas de TCC',
+        legend_title=dict(text=legend_title),
         plot_bgcolor='#fff',
         title=dict(
             text='Orientações concluídas de TCC por Unidade',
